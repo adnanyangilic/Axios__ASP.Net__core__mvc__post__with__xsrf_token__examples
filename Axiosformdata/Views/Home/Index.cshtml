@@ -1,0 +1,40 @@
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@functions
+{
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<h1>Anti-forgery token with ASP.NET Core MVC AJAX requests</h1>
+
+
+
+@section Scripts {
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+
+
+
+            var bodyFormData = new FormData();
+            bodyFormData.append('FruitName', 'Black Fig');
+            axios({
+                method: "POST",
+                url: "/Fruits/Create3",
+                data: bodyFormData,
+                headers: {
+                    "RequestVerificationToken": "@GetAntiXsrfRequestToken()",
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            .then((response) => {
+                console.log(response);
+            }, (error) => {
+                console.log(error);
+            });
+
+    </script>
+}

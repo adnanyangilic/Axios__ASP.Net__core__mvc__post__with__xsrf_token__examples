@@ -1,0 +1,40 @@
+﻿
+
+
+
+
+
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+@section Scripts{
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var bodyFormData = new FormData();
+        bodyFormData.append('FruitName', 'Strawberries');
+        axios({
+            method: "post",
+            url: "/Fruits/Create",
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            });
+
+
+
+
+    </script>
+}
